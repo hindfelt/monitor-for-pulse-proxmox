@@ -74,7 +74,7 @@ The app is read-only, has no accounts or purchases, and connects only to the HTT
 This app adds a desktop widget for Pulse, self-hosted server monitoring software. To review it, click "Try with Demo Data" in the window that opens at first launch, then right-click the desktop, choose Edit Widgets and add Monitor for Pulse. The app stays in the menu bar because it fetches data for the widget. "Open at login" is off by default and only the user can turn it on.
 
 ## Screenshots
-Use **demo data** so no real server names appear. Take them on an iPhone with the app set to light or dark, whichever looks best, and keep the same one throughout.
+Take them on an iPhone with the app set to light or dark, whichever looks best, and keep the same one throughout. Demo data is an option if you want to hide real server names.
 
 1. Home: gauges and "Needs attention"
 2. Guests, sorted by issues
