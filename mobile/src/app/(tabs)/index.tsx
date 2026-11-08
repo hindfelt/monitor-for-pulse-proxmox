@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <Screen>
       <Header
-        title="Pulse"
+        title="Overview"
         right={
           <View style={s.row}>
             <LiveBadge />
