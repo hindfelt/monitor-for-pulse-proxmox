@@ -1,0 +1,68 @@
+{
+  "expo": {
+    "name": "Monitor for Pulse",
+    "slug": "pulse-mobile",
+    "scheme": "pulsemobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hindfelt.pulsemobile",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "Monitor for Pulse connects to your Pulse server, which may be on your local network.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false
+        }
+      },
+      "appleTeamId": "MFFD9U3PAR",
+      "entitlements": {
+        "keychain-access-groups": [
+          "$(AppIdentifierPrefix)com.hindfelt.pulsemobile.shared"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.hindfelt.pulsemobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#4F46E5",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 120,
+          "backgroundColor": "#f3f5f9",
+          "dark": {
+            "backgroundColor": "#0b0e14"
+          }
+        }
+      ],
+      "expo-font",
+      "@bacons/apple-targets"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "bb8f8784-251b-4f9c-9aea-175ffee2a57d"
+      }
+    },
+    "owner": "hindfelt"
+  }
+}

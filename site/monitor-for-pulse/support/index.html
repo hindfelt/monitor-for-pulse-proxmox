@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Support – Monitor for Pulse</title><meta name="description" content="Setup help and support for Monitor for Pulse, a read-only client for the Pulse Proxmox monitoring tool."><style>:root{color-scheme:light dark;--bg:#f6f7fb;--card:#fff;--fg:#121722;--muted:#5f6880;--line:#e1e5ee;--accent:#4f46e5}@media(prefers-color-scheme:dark){:root{--bg:#0b0e14;--card:#151a23;--fg:#e8ecf3;--muted:#98a1b5;--line:#262d3b;--accent:#a5b4fc}}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:680px;margin:0 auto;padding:48px 20px 64px}header{display:flex;align-items:center;gap:14px;margin-bottom:28px}header svg{width:52px;height:52px;flex:none}h1{font-size:30px;line-height:1.2;margin:0;letter-spacing:-.02em}header p{margin:2px 0 0;color:var(--muted)}h2{font-size:19px;margin:32px 0 8px}section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 20px 12px;margin-top:16px}section h2{margin-top:16px}h3{font-size:16px;margin:18px 0 2px}a{color:var(--accent)}code{font-size:.92em;overflow-wrap:anywhere}li{margin:4px 0}footer{margin-top:32px;color:var(--muted);font-size:14px}</style></head>
+<body><main>
+<header><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#4f46e5"/><path d="M10 34h11l5-12 8 22 6-14 3 4h11" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h1>Monitor for Pulse</h1><p>Your Proxmox homelab at a glance</p></div></header>
+<p>A read-only app and Mac widget for <a href="https://github.com/rcourtman/Pulse">Pulse</a>, the self-hosted monitoring tool. You need your own Pulse server. Monitor for Pulse is an independent project, not affiliated with the Pulse project.</p>
+<p><a href="../guide/"><strong>New here? Read the illustrated setup guide →</strong></a></p>
+<section><h2>Get started</h2>
+<ol>
+<li>Make sure Pulse is available over HTTPS with a valid certificate.</li>
+<li>In Pulse, go to <strong>Settings → API Access</strong> and create a token with only <strong>Monitoring &amp; alerts (read)</strong>.</li>
+<li>Enter the address and token in the app. To look around first, choose <strong>Try it with demo data</strong>.</li>
+<li>On a Mac, right-click the desktop, choose <strong>Edit Widgets…</strong> and add <strong>Monitor for Pulse</strong>.</li>
+</ol></section>
+<section><h2>Common questions</h2>
+<h3>Why is HTTPS required?</h3>
+<p>Your API token is sent with every request, so the connection has to be encrypted. Put Pulse behind a reverse proxy with a certificate from a public authority. A self-signed certificate works only if your device trusts it.</p>
+<h3>The app can't reach Pulse</h3>
+<ul><li>Open the same address in your device's browser. It should load without a certificate warning.</li>
+<li>Away from home, turn on your VPN if Pulse is only on your own network.</li>
+<li>Check <strong>Local Network</strong> under your device's privacy settings, and allow the app.</li></ul>
+<h3>It says the token was rejected</h3>
+<p>Create a new token with the scope above, and check that you copied all of it.</p>
+<h3>Why is temperature missing?</h3>
+<p>Pulse only has temperatures once the Pulse agent is installed on the Proxmox host. Check that Pulse itself shows one.</p>
+<h3>Why isn't the Mac widget up to date?</h3>
+<p>The Mac app fetches for the widget, so it has to be running in the menu bar. You can turn on <strong>Open at login</strong> in its settings. macOS decides when widgets redraw, so there can be a delay.</p>
+<h3>Can the app change anything on my servers?</h3>
+<p>No. It only reads monitoring data.</p></section>
+<section><h2>Contact</h2>
+<p>Email <a href="mailto:hindfelt+pulse_app@gmail.com">hindfelt+pulse_app@gmail.com</a>. It helps to include your device, the app version, your Pulse version and the exact message you see. Never send your API token.</p></section>
+<footer><a href="../guide/">Setup guide</a> · <a href="../privacy/">Privacy Policy</a> · <a href="https://0x4d.in/">0x4d.in</a></footer>
+</main></body></html>

@@ -1,0 +1,32 @@
+# Dependencies and build output
+node_modules/
+dist/
+.expo/
+.build/
+.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+.DS_Store
+
+# Generated native projects (mobile uses Expo prebuild)
+mobile/ios/
+mobile/android/
+
+# Secrets and signing files. Never commit these.
+.env
+.env.*
+*.p8
+*.p12
+*.pem
+*.key
+*.mobileprovision
+*.provisionprofile
+*.keystore
+*.jks
+credentials.json
+google-services.json
+GoogleService-Info.plist
+
+# Local tool settings
+.claude/
