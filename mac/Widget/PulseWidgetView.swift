@@ -162,22 +162,27 @@ private struct Footer: View {
 
     var body: some View {
         // Says how old the numbers are, so an out-of-date widget can't pass for a live one.
-        Group {
-            if isStale {
-                Text("Offline · last update \(summary.date, style: .time)")
-            } else {
-                Text("Updated \(summary.date, style: .time)")
+        HStack(spacing: 6) {
+            Group {
+                if isStale {
+                    Text("Offline · last update \(summary.date, style: .time)")
+                } else {
+                    Text("Updated \(summary.date, style: .time)")
+                }
             }
-        }
-        .font(.caption2)
-        .foregroundStyle(.secondary)
-        .lineLimit(1)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .overlay(alignment: .trailing) {
+            .font(.caption2)
+            .foregroundStyle(.secondary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+
+            Spacer(minLength: 4)
+
             Button(intent: RefreshPulseIntent()) {
                 Image(systemName: "arrow.clockwise")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Color.accentColor)
+                    .frame(width: 24, height: 24)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Refresh")
