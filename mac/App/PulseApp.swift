@@ -32,7 +32,7 @@ private struct MenuContent: View {
         }
         Divider()
         Button("Refresh Now") {
-            Task { await refresher.refresh() }
+            Task { await refresher.refresh(force: true) }
         }
         Button("Settings…", action: openSettings)
         Divider()
@@ -50,10 +50,12 @@ final class Refresher: ObservableObject {
     private var loop: Task<Void, Never>?
     private var lastReload = Date.distantPast
     private var lastReloaded: PulseSummary?
-    /// macOS rations widget reloads, so routine number changes wait for this long.
-    private let routineReload: TimeInterval = 5 * 60
+    /// macOS can't tell the app when a widget becomes visible, so keep it as fresh as macOS allows.
+    private let routineReload: TimeInterval = 60
+    private var wakeObservers: [NSObjectProtocol] = []
 
     func start() {
+        observeWake()
         loop?.cancel()
         loop = Task { [weak self] in
             while !Task.isCancelled {
@@ -63,7 +65,23 @@ final class Refresher: ObservableObject {
         }
     }
 
-    func refresh() async {
+    /// Refresh right away when the Mac wakes or is unlocked, then again once the network is back.
+    private func observeWake() {
+        guard wakeObservers.isEmpty else { return }
+        let center = NSWorkspace.shared.notificationCenter
+        let names = [NSWorkspace.didWakeNotification, NSWorkspace.screensDidWakeNotification, NSWorkspace.sessionDidBecomeActiveNotification]
+        wakeObservers = names.map { name in
+            center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    await self?.refresh(force: true)
+                    try? await Task.sleep(for: .seconds(10))
+                    await self?.refresh(force: true)
+                }
+            }
+        }
+    }
+
+    func refresh(force: Bool = false) async {
         guard let connection = ConnectionStore.load() else {
             summary = nil
             error = nil
@@ -74,18 +92,18 @@ final class Refresher: ObservableObject {
             SummaryCache.save(next)
             summary = next
             error = nil
-            reloadWidgetIfNeeded(next)
+            reloadWidgetIfNeeded(next, force: force)
         } catch {
             self.error = error.localizedDescription
         }
     }
 
-    private func reloadWidgetIfNeeded(_ next: PulseSummary) {
+    private func reloadWidgetIfNeeded(_ next: PulseSummary, force: Bool) {
         let previous = lastReloaded
         let statusChanged = previous?.overall != next.overall
             || previous?.rows != next.rows
             || previous?.guestsRunning != next.guestsRunning
-        guard statusChanged || Date().timeIntervalSince(lastReload) >= routineReload else { return }
+        guard force || statusChanged || Date().timeIntervalSince(lastReload) >= routineReload else { return }
         lastReload = Date()
         lastReloaded = next
         WidgetCenter.shared.reloadAllTimelines()

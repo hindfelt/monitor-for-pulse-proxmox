@@ -27,7 +27,7 @@ To use your own Apple team, change Team under Signing & Capabilities on both tar
 
 ## Refresh
 
-The app fetches once a minute. It asks the widget to redraw when the status changes and otherwise every 5 minutes, but macOS decides when that actually happens and may delay it. Pressing **Connect** also asks for a redraw.
+The app fetches once a minute, and right away when the Mac wakes or is unlocked, and asks the widget to redraw each time. macOS decides when that actually happens and may delay it, and it doesn't tell apps when a widget becomes visible. The widget's refresh button updates it immediately. Pressing **Connect** also asks for a redraw.
 
 ## Temperature
 

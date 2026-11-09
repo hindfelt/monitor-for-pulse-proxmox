@@ -1,5 +1,18 @@
+import AppIntents
 import SwiftUI
 import WidgetKit
+
+/// The widget's refresh button. WidgetKit redraws the widget after this finishes.
+struct RefreshPulseIntent: AppIntent {
+    static var title: LocalizedStringResource = "Refresh Pulse"
+
+    func perform() async throws -> some IntentResult {
+        if let connection = ConnectionStore.load(), let summary = try? await PulseClient(connection: connection).summary() {
+            SummaryCache.save(summary)
+        }
+        return .result()
+    }
+}
 
 struct PulseEntry: TimelineEntry {
     enum State {

@@ -172,6 +172,16 @@ private struct Footer: View {
         .font(.caption2)
         .foregroundStyle(.secondary)
         .lineLimit(1)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .overlay(alignment: .trailing) {
+            Button(intent: RefreshPulseIntent()) {
+                Image(systemName: "arrow.clockwise")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Refresh")
+        }
     }
 }
 
