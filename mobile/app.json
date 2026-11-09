@@ -8,7 +8,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.hindfelt.pulsemobile",
       "infoPlist": {
         "NSLocalNetworkUsageDescription": "Monitor for Pulse connects to your Pulse server, which may be on your local network.",
